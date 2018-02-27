@@ -6,7 +6,7 @@ import axios from 'axios';
 
 require('styles//Offer.css');
 
-var api_url = 'http://localhost:8081/test';
+var api_url = 'http://localhost:8080/offers';
 
 
 function starFormat(fieldValue, row) {
