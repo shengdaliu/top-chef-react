@@ -1,23 +1,40 @@
 'use strict';
 
 import React from 'react';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import axios from 'axios';
 
 require('styles//Offer.css');
 
 class OfferComponent extends React.Component {
+
+  constructor(props) {
+      super(props);
+      this.state = {
+        offers: []
+      };
+  }
+  
+  componentDidMount() {
+    this.OfferComponent();
+  }
+
+  OfferComponent() {
+    axios.get('http://localhost:8081/test')
+      .then(res => {
+        const offers = res.data;
+        this.setState({ offers });
+      });
+  }
+
   render() {
+    var listOffers = this.state.offers;
 
-    const numbers = [1, 2, 3, 4, 5];
-    const listItems = numbers.map((numbers) =>
-      <div>{numbers}</div>
-    );
-
-    return (
-      <div className="offer-component">
-        <div>{listItems}</div>
-        Please edit src/components///OfferComponent.js to update this component!
-      </div>
-    );
+    return (<BootstrapTable data={listOffers}  version='4'>
+          <TableHeaderColumn isKey dataField='name' dataSort={ true }>Product ID</TableHeaderColumn>
+          <TableHeaderColumn dataField='star' dataSort={ true }>Product Name</TableHeaderColumn>
+          <TableHeaderColumn dataField='chef' dataSort={ true }>Product Price</TableHeaderColumn>
+      </BootstrapTable>)
   }
 }
 
